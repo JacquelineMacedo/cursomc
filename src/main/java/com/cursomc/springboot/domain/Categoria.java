@@ -1,15 +1,23 @@
 package com.cursomc.springboot.domain;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.io.Serializable;
 
-public class Categoria implements Serializable {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
+@Entity
+public class Categoria implements Serializable {
 	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy=IDENTITY)
 	private Integer id;
 	private String nome;
-	
 
-	private Categoria() {
+	public Categoria() {
 	}
 
 	public Categoria(String nome, Integer id) {
