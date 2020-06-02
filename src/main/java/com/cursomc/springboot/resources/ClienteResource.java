@@ -9,19 +9,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cursomc.springboot.domain.Categoria;
-import com.cursomc.springboot.services.CategoriaService;
+import com.cursomc.springboot.domain.Cliente;
+import com.cursomc.springboot.services.ClienteService;
 
-@RequestMapping(value = "/categorias")
+@RequestMapping(value = "/clientes")
 @RestController
-public class CategoriaResource {
+public class ClienteResource {
 	
 	@Autowired
-	private CategoriaService service;
+	private ClienteService service;
 
 	@RequestMapping(value="/{id}", method=GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
-		Categoria obj = service.find(id);
+		Cliente obj = service.find(id);
 		return ok().body(obj);
 	}
  }
