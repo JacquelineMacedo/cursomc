@@ -28,7 +28,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @NoArgsConstructor
-@EqualsAndHashCode(exclude={"nome", "email", "cpfOuCnpj", "tipo", "enderecos", "telefones"})
+@EqualsAndHashCode(exclude={"nome", "email", "cpfOuCnpj", "tipo", "enderecos", "telefones", "pedidos"})
 public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -39,6 +39,9 @@ public class Cliente implements Serializable {
 	private String email;
 	private String cpfOuCnpj;
 	private Integer tipo;
+	
+	@OneToMany(mappedBy = "cliente")
+	private List<Pedido> pedidos = new ArrayList<>();
 	
 	@JsonManagedReference
 	@OneToMany (mappedBy = "cliente")
