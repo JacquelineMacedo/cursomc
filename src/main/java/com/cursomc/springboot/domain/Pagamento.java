@@ -13,6 +13,7 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.cursomc.springboot.domain.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,6 +35,7 @@ public abstract class Pagamento implements Serializable {
 
 	@MapsId
 	@OneToOne
+	@JsonIgnore
 	@JoinColumn(name = "pedido_id")
 	private Pedido pedido;
 
