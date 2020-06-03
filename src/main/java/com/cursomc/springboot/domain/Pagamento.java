@@ -17,11 +17,13 @@ import com.cursomc.springboot.domain.enums.EstadoPagamento;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Inheritance(strategy = JOINED)
 @AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(exclude = { "estado", "pedido" })
 public abstract class Pagamento implements Serializable {
 	private static final long serialVersionUID = 1L;
