@@ -1,9 +1,11 @@
 package com.cursomc.springboot.resources;
 
 import static org.springframework.http.ResponseEntity.created;
+import static org.springframework.http.ResponseEntity.noContent;
 import static org.springframework.http.ResponseEntity.ok;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
 import java.net.URI;
@@ -21,20 +23,27 @@ import com.cursomc.springboot.services.CategoriaService;
 @RequestMapping(value = "/categorias")
 @RestController
 public class CategoriaResource {
-	
+
 	@Autowired
 	private CategoriaService service;
 
-	@RequestMapping(value="/{id}", method=GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
+	@RequestMapping(value = "/{id}", method = GET)
+	public ResponseEntity<Categoria> find(@PathVariable Integer id) {
 		Categoria obj = service.find(id);
 		return ok().body(obj);
 	}
-	
-	@RequestMapping(method=POST)
+
+	@RequestMapping(method = POST)
 	public ResponseEntity<Void> insert(@RequestBody Categoria categoria) {
 		categoria = service.insert(categoria);
 		URI uri = fromCurrentRequest().path("/{id}").buildAndExpand(categoria.getId()).toUri();
-	return created(uri).build();
- }
+		return created(uri).build();
+	}
+
+	@RequestMapping(value = "/{id}", method = PUT)
+	public ResponseEntity<Void> update(@RequestBody Categoria categoria, @PathVariable Integer id) {
+		categoria.setId(id);
+		categoria = service.update(categoria);
+		return noContent().build();
+	}
 }

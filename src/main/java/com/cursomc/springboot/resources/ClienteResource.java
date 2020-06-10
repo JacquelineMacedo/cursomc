@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cursomc.springboot.domain.Cliente;
 import com.cursomc.springboot.services.ClienteService;
 
-@RequestMapping(value = "/clientes")
 @RestController
+@RequestMapping(value = "/clientes")
 public class ClienteResource {
 	
 	@Autowired
 	private ClienteService service;
 
 	@RequestMapping(value="/{id}", method=GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
+	public ResponseEntity<Cliente> find(@PathVariable Integer id) {
 		Cliente obj = service.find(id);
 		return ok().body(obj);
 	}
