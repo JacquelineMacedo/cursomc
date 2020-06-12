@@ -29,10 +29,10 @@ import lombok.Setter;
 @Setter
 @Entity
 @NoArgsConstructor
-@EqualsAndHashCode(exclude={"nome", "email", "cpfOuCnpj", "tipo", "enderecos", "telefones", "pedidos"})
+@EqualsAndHashCode(exclude = { "nome", "email", "cpfOuCnpj", "tipo", "enderecos", "telefones", "pedidos" })
 public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	private Integer id;
@@ -40,15 +40,15 @@ public class Cliente implements Serializable {
 	private String email;
 	private String cpfOuCnpj;
 	private Integer tipo;
-	
+
 	@JsonBackReference
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
-	
+
 	@JsonManagedReference
-	@OneToMany (mappedBy = "cliente")
+	@OneToMany(mappedBy = "cliente")
 	private List<Endereco> enderecos = new ArrayList<>();
-	
+
 	@ElementCollection
 	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefones = new HashSet<>();
@@ -59,7 +59,7 @@ public class Cliente implements Serializable {
 		this.nome = nome;
 		this.email = email;
 		this.cpfOuCnpj = cpfOuCnpj;
-		this.tipo = tipo.getCod();
+		this.tipo = (tipo == null) ? null : tipo.getCod();
 	}
 
 	public TipoCliente getTipo() {
