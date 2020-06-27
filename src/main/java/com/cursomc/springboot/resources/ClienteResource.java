@@ -1,12 +1,16 @@
 package com.cursomc.springboot.resources;
 
 import static java.util.stream.Collectors.toList;
+import static org.springframework.http.ResponseEntity.created;
 import static org.springframework.http.ResponseEntity.noContent;
 import static org.springframework.http.ResponseEntity.ok;
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
+import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
+import java.net.URI;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -22,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cursomc.springboot.domain.Cliente;
 import com.cursomc.springboot.dto.ClienteDTO;
+import com.cursomc.springboot.dto.ClienteNewDTO;
 import com.cursomc.springboot.services.ClienteService;
 
 @RestController
@@ -35,6 +40,14 @@ public class ClienteResource {
 	public ResponseEntity<Cliente> find(@PathVariable Integer id) {
 		Cliente obj = service.find(id);
 		return ok().body(obj);
+	}
+	
+	@RequestMapping(method = POST)
+	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO clienteNewDTO) {
+		Cliente cliente = service.fromDTO(clienteNewDTO);
+		cliente = service.insert(cliente);
+		URI uri = fromCurrentRequest().path("/{id}").buildAndExpand(cliente.getId()).toUri();
+		return created(uri).build();
 	}
 	
 	@RequestMapping(value = "/{id}", method = PUT)

@@ -1,6 +1,7 @@
 package com.cursomc.springboot.domain;
 
 import static com.cursomc.springboot.domain.enums.TipoCliente.toEnum;
+import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
@@ -46,7 +47,7 @@ public class Cliente implements Serializable {
 	private List<Pedido> pedidos = new ArrayList<>();
 
 	@JsonManagedReference
-	@OneToMany(mappedBy = "cliente")
+	@OneToMany(mappedBy = "cliente", cascade = ALL)
 	private List<Endereco> enderecos = new ArrayList<>();
 
 	@ElementCollection
