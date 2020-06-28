@@ -8,6 +8,7 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
 import com.cursomc.springboot.domain.Cliente;
+import com.cursomc.springboot.services.validation.ClienteUpdate;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@ClienteUpdate
 @NoArgsConstructor
 public class ClienteDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
