@@ -60,7 +60,6 @@ public class Pedido implements Serializable {
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private Date instante;
 
-	@JsonManagedReference
 	@OneToOne(cascade = ALL, mappedBy = "pedido")
 	private Pagamento pagamento;
 
