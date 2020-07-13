@@ -2,6 +2,7 @@ package com.cursomc.springboot.services;
 
 import static com.cursomc.springboot.domain.enums.EstadoPagamento.PENDENTE;
 import static com.cursomc.springboot.domain.enums.EstadoPagamento.QUITADO;
+import static com.cursomc.springboot.domain.enums.Perfil.ADMIN;
 import static com.cursomc.springboot.domain.enums.TipoCliente.PESSOA_FISICA;
 import static java.util.Arrays.asList;
 
@@ -128,14 +129,20 @@ public class DBService {
 
 		Cliente cli1 = new Cliente(null, "Maria", "jacquelinemacedo.ml@gmail.com", "12345678900", PESSOA_FISICA, pe.encode("123"));
 		cli1.getTelefones().addAll(asList("98525142", "236987414"));
-
+		
+		Cliente cli2 = new Cliente(null, "Ana Costa", "jacqueline.ml@gmail.com", "07551452400", PESSOA_FISICA, pe.encode("123"));
+		cli1.getTelefones().addAll(asList("871245457", "22222222"));
+		cli2.addPerfil(ADMIN);
+		
 		Endereco e1 = new Endereco(null, "Rua flores", "300", "apt 303", "jardim", "38254578", cli1, c1);
 		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "3877012", cli1, c2);
+		Endereco e3 = new Endereco(null, "Avenida peixoto", "105", "Sala 200", "zona norte", "5421214", cli2, c2);
 
 		cli1.getEnderecos().addAll(asList(e1, e2));
-
-		clienteRepository.saveAll(asList(cli1));
-		enderecoRepository.saveAll(asList(e1, e2));
+		cli2.getEnderecos().addAll(asList(e3));
+		
+		clienteRepository.saveAll(asList(cli1, cli2));
+		enderecoRepository.saveAll(asList(e1, e2, e3));
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		Pedido ped1 = new Pedido(null, sdf.parse("30/10/2017 10:20"), cli1, e1);
