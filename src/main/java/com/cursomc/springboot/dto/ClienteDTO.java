@@ -30,7 +30,7 @@ public class ClienteDTO implements Serializable {
 	@NotEmpty(message = "Prenchimento obrigatório")
 	@Email(message = "Email invalido")
 	private String email;
-
+	
 	public ClienteDTO(Cliente cliente) {
 		id = cliente.getId();
 		nome = cliente.getNome();

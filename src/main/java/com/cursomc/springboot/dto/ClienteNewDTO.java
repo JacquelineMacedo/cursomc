@@ -48,4 +48,6 @@ public class ClienteNewDTO implements Serializable {
 
 	private Integer cidadeId;
 
+	@NotEmpty(message = "Prenchimento obrigatório")
+	private String senha;
 }
