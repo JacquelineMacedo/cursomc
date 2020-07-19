@@ -6,13 +6,16 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.ResponseEntity.status;
 
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.cursomc.springboot.services.exceptions.AuthorizationException;
 import com.cursomc.springboot.services.exceptions.DataIntegrityException;
 import com.cursomc.springboot.services.exceptions.ObjectNotFoundException;
 
@@ -38,5 +41,12 @@ public class ResourseExceptionHandler {
 			error.addError(fieldError.getField(), fieldError.getDefaultMessage());
 		}
 		return status(BAD_REQUEST).body(error);
+	}
+
+	@ExceptionHandler(AuthorizationException.class)
+	public ResponseEntity<StandardError> authorization(AuthorizationException e, HttpServletRequest request) {
+
+		StandardError err = new StandardError(HttpStatus.FORBIDDEN.value(), e.getMessage(), System.currentTimeMillis());
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);
 	}
 }
